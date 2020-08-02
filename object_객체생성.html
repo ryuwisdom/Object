@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    //     const person = {
+    //         schoolId: 12102601,
+    //         name: "jihye",
+    //         age: 28,
+    //         hobby: "cooking",
+    //         gender: "F",
+    //         home: "daegu",
+    //         isGraduated: true,
+    //         isHaveCat: false,
+    //         introduce: function(){
+    //             return `my name is ${this.name}, I live in ${this.home}.`
+    //         },
+    //         sharePriority : function(){
+    //             return "first is to be a developer +_+" 
+    //         }
+    //     }
+
+    //    for ( personal in person) {
+    //         console.log(`${personal} : ${person[personal]}`);
+    //    }
+
+
+        //객체 생성자
+       function Person (first, last, phone, city, plan){
+           this.firstname = first,
+           this.lastname = last,
+           this.phoneNumber = phone,
+           this.city = city,
+           this.toNightPlan = plan
+        //    this.makePlan = function(){
+        //        console.log(`I'm going to ${this.toNightPlan}`);
+        //    }
+
+       }
+
+       //prototype사용 
+       //prototype의 역할 : 객체 생성자로 무언가를 만들었을때 그걸로 만든 객체들끼리 
+       //무언가를 공유할 수 있도록 어떠한 값이나 함수를 js객체생성자로 만든 함수에다가 prototype으로 설정할 수 있다.
+       //만약 prototype을 사용하지 않는다면 메모리에 propertis가 5개씩 3개 할당됨.
+       //만약 객체를 100를 만들면 500개의 변수가 메모리에 할당 -> 이런 문제를 prototype으로 해결 
+       
+    //    Person.prototype.makePlan = function(){
+    //        console.log(this.toNightPlan);
+    //    }
+    //     Person.prototype.shareValue = 1;
+        
+
+
+    //       const one = new Person ("Jihye", "bonnie", "010-1234-5678", "daegu", "study JavaScript")
+    //       const two = new Person ("byeol", "stella", "010-3452-4567", "changwon", "ready to open own academy")
+    //       const three = new Person ("wisdom", null, "010-334-6474", "Moon", "spend a time with my cat")
+    
+        //   two.makePlan();
+        //   one.makePlan();
+        //   three.makePlan();
+
+        // one.shareValue
+        // two.shareValue
+
+        // one.makePlan();
+        // two.makePlan();
+
+
+
+
+       //------------------------------------------------------------
+    //    const arr = [new Person ("Jihye", "bonnie", "010-1234-5678", "daegu", "study")
+    //    , new Person ("byeol", "stella", "010-3452-4567", "changwon", "study")
+    //    , new Person ("wisdom", null, "010-334-6474", "Moon", "spend a time with cat")
+    // ]
+
+    //    for(key in arr[1]){
+    //        console.log(key, arr[1][key]);
+    //     }
+
+    // for(let i =0;i<3;i++){
+    //     console.log(arr[i]);
+    // }
+       
+
+ //상속 
+
+ function Person (first, city, plan){
+           this.firstname = first,
+           this.city = city,
+           this.toNightPlan = plan
+ }
+
+ Person.prototype.makePlan = function(){
+           console.log(this.toNightPlan);
+       }
+
+       function One(city, plan){
+           Person.call(this, 'jihye', city, plan)
+       }
+       function Two(city, plan){
+           Person.call(this, 'byeol', city, plan)
+       }
+
+       One.prototype = Person.prototype;
+       Two.prototype = Person.prototype;
+
+       const one = new One('daegu', 'study javascript')
+       const two = new Two('changwon', 'ready to open own academy')
+
+
+    //    one.shareValue
+    //    two.shareValue
+
+       one.makePlan();
+       two.makePlan();
+
+
+ 
+    function Country(name, location, capital, weather, food,issue){
+        this.counrtyName = name,
+        this.countryLocation = location,
+        this.countryCapital = capital,
+        this.countryWeather = weather,
+        this.countryFamousFood = food,
+        this.countryIssue = issue,
+        this.isIssue = function(){
+            if(this.countryIssue === null){
+                console.log(`Good timing to travel to ${this.counrtyName}`);
+            }else {
+                console.log(`I will think twice about ${this.counrtyName}`);
+            }
+        },
+        this.isSafe = function(){
+            console.log(`${this.countryCapital} would be safe!`);
+        }
+
+    }
+
+
+    const korea = {
+        name : "South Korea",
+        location : "Asia",
+        capital : "Seoul",
+        weather : "four weather",
+        food : "Kimchi",
+        issue : "Every day"
+    }
+
+    //비구조 할당전 
+    function print (report) {
+        const text = `${report.name}은 ${report.location}에 위치하고 있으며 수도는 ${report.capital}이다. ${report.weather}로 이루어져 있으며
+        문제는 ${report.issue}발생한다`
+
+        console.log(text);
+    }
+
+    print(korea)
+
+    //비구조 할당(1)
+    function print (report) {
+        const {name, location, capital, weather, issue} = report
+        const text = `${name}은 ${location}에 위치하고 있으며 수도는 ${capital}이다. ${weather}로 이루어져 있으며
+        문제는 ${issue}발생한다`
+
+        console.log(text);
+    }
+
+    print(korea)
+
+    //비구조 할당(2)
+    function print ( {name, location, capital, weather, issue}) {
+        const text = `${name}은 ${location}에 위치하고 있으며 수도는 ${capital}이다. ${weather}로 이루어져 있으며
+        문제는 ${issue}발생한다`
+
+        console.log(text);
+    }
+
+    print(korea)
+</script>
+</body>
+</html>
